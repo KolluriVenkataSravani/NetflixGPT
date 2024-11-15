@@ -1,5 +1,8 @@
 import Header from "./Header";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { validateData } from "../utils/validate";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../utils/firebase"
 
 const Login = () => {
     const [isSignInForm, setSignInForm]=useState(true);
@@ -9,6 +12,41 @@ const Login = () => {
         setSignInForm(!isSignInForm);
     }
 
+    const email=useRef(null);
+    const password=useRef(null);
+
+    const handleClick=()=>{
+        const message=validateData(email.current.value,password.current.value);
+        setErrorMessage(message);
+        if(message) return;
+        if(!isSignInForm){
+            //Sign Up Logic
+            createUserWithEmailAndPassword(auth, email.current.value,password.current.value)
+                .then((userCredential) => {
+                    // Signed up 
+                    const user = userCredential.user;
+                    console.log(user);
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    setErrorMessage(errorCode + "-" + errorMessage);
+                });
+        }else{
+            // Sign In Logic
+            signInWithEmailAndPassword(auth, email.current.value,password.current.value)
+                .then((userCredential) => {
+                    // Signed in 
+                    const user = userCredential.user;
+                    console.log(user);
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    setErrorMessage(errorCode + "-" + errorMessage);
+                });
+            }
+    }
   return (
     <div>
         <Header />
@@ -21,10 +59,10 @@ const Login = () => {
                 {isSignInForm? "Sign In":"Sign Up"}
             </h1>
             {!isSignInForm && <input type="text" placeholder="Full Name" className="p-4 my-4 w-full bg-gray-800" />}
-            <input  type="text" placeholder="Email Address" className="p-4 my-4 w-full bg-gray-800" />
-            <input type="password" placeholder="Password" className="p-4 my-4 w-full bg-gray-800" />
+            <input ref={email} type="text" placeholder="Email Address" className="p-4 my-4 w-full bg-gray-800" />
+            <input ref={password} type="password" placeholder="Password" className="p-4 my-4 w-full bg-gray-800" />
             <p className="text-red-500 font-bold text-lg py-2">{errorMesssage}</p>
-            <button className="p-4 my-6 bg-red-700 w-full rounded-lg" >
+            <button className="p-4 my-6 bg-red-700 w-full rounded-lg" onClick={handleClick}>
                 {isSignInForm? "Sign In":"Sign Up"}
             </button>
             <p className="py-4 cursor-pointer" onClick={toggleSignInForm}>
