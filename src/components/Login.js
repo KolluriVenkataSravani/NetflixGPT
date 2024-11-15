@@ -1,10 +1,12 @@
 import Header from "./Header";
 import { useRef, useState } from "react";
 import { validateData } from "../utils/validate";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../utils/firebase"
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+    const navigate=useNavigate();
     const [isSignInForm, setSignInForm]=useState(true);
     const [errorMesssage, setErrorMessage]=useState(null);
 
@@ -12,6 +14,7 @@ const Login = () => {
         setSignInForm(!isSignInForm);
     }
 
+    const name=useRef(null);
     const email=useRef(null);
     const password=useRef(null);
 
@@ -25,12 +28,20 @@ const Login = () => {
                 .then((userCredential) => {
                     // Signed up 
                     const user = userCredential.user;
-                    console.log(user);
+                    updateProfile(user, {
+                        displayName: name.current.value, 
+                        photoURL: "https://avatars.githubusercontent.com/u/127029714?v=4",
+                      }).then(() => {
+                        navigate("/browse");
+                      }).catch((error) => {
+                        // An error occurred
+                        setErrorMessage("Hi-----"+error.message);
+                      });
                 })
                 .catch((error) => {
                     const errorCode = error.code;
                     const errorMessage = error.message;
-                    setErrorMessage(errorCode + "-" + errorMessage);
+                    setErrorMessage("Byee-----"+errorCode + "-" + errorMessage);
                 });
         }else{
             // Sign In Logic
@@ -39,6 +50,7 @@ const Login = () => {
                     // Signed in 
                     const user = userCredential.user;
                     console.log(user);
+                    navigate("/browse");
                 })
                 .catch((error) => {
                     const errorCode = error.code;
@@ -58,7 +70,7 @@ const Login = () => {
             <h1 className="ont-bold text-3xl py-4">
                 {isSignInForm? "Sign In":"Sign Up"}
             </h1>
-            {!isSignInForm && <input type="text" placeholder="Full Name" className="p-4 my-4 w-full bg-gray-800" />}
+            {!isSignInForm && <input ref={name} type="text" placeholder="Full Name" className="p-4 my-4 w-full bg-gray-800" />}
             <input ref={email} type="text" placeholder="Email Address" className="p-4 my-4 w-full bg-gray-800" />
             <input ref={password} type="password" placeholder="Password" className="p-4 my-4 w-full bg-gray-800" />
             <p className="text-red-500 font-bold text-lg py-2">{errorMesssage}</p>
