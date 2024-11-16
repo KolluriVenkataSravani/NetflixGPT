@@ -30,6 +30,11 @@
 - Embed the youtube video and make it autoplay and mute
 - Add Tailwind classes to make the main container look awesome
 - Build Secondary Component
+- Build movie list, movie card
+- TMDB Image CDN URL
+- Made the browser page amazing with tailwind css
+- usePopularMovies custom hook
+- 
 
 ## Features
 - Login / Sign Up
