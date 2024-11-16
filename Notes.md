@@ -29,6 +29,7 @@
 - Update store with main movie data
 - Embed the youtube video and make it autoplay and mute
 - Add Tailwind classes to make the main container look awesome
+- Build Secondary Component
 
 ## Features
 - Login / Sign Up
