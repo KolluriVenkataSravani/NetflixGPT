@@ -18,6 +18,8 @@
 - Bug Fix 2: If the user is not logged in redirect /browse to login page and vice-versa
 - Unsubscribed to the onAuthStateChanged callback
 - Add hardcoded values to the constants file
+- Register TMDB API and create an app and get access token
+- Get data from TMDB Now Playing movies list
 
 ## Features
 - Login / Sign Up

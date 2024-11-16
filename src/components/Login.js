@@ -52,8 +52,6 @@ const Login = () => {
                 .then((userCredential) => {
                     // Signed in 
                     const user = userCredential.user;
-                    console.log(auth.currentUser.displayName);
-                    console.log(auth.currentUser.photoURL);
                 })
                 .catch((error) => {
                     const errorCode = error.code;
