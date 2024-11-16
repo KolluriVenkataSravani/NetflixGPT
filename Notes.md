@@ -20,6 +20,7 @@
 - Add hardcoded values to the constants file
 - Register TMDB API and create an app and get access token
 - Get data from TMDB Now Playing movies list
+- Build video title, video background for main movie
 
 ## Features
 - Login / Sign Up
