@@ -35,6 +35,7 @@
 - Made the browser page amazing with tailwind css
 - usePopularMovies custom hook
 - Gpt Search bar which when clicked opens a seperate page to search
+- Add a drop down with multiple languages(English, Telugu, Hindi, Tamil). When clicked on any language, the placeholder of the search bar and the search button value changes accordingly.
 
 ## Features
 - Login / Sign Up
