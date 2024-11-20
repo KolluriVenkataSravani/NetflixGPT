@@ -36,6 +36,8 @@
 - usePopularMovies custom hook
 - Gpt Search bar which when clicked opens a seperate page to search
 - Add a drop down with multiple languages(English, Telugu, Hindi, Tamil). When clicked on any language, the placeholder of the search bar and the search button value changes accordingly.
+- The dropdown should be only visible when GPT Search button is clicked.
+- When GPT Search button is clicked, it should be changed to Homepage
 
 ## Features
 - Login / Sign Up
